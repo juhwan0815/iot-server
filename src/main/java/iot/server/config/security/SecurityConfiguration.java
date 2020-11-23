@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -32,7 +33,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .authorizeRequests() // 다음 리퀘스트에 대한 사용 권한 체
                         .antMatchers("/member/signin","/member/signup").permitAll() // 가입 및 인증 주소는 누구나 접근 가능
                         .antMatchers(HttpMethod.GET,"/exception/**").permitAll() // exception 허용
-                        .antMatchers("/members").hasRole("ADMIN")
                         .anyRequest().hasRole("MEMBER") // 그 외 나머지 요청은 모두 인증된 회원만 접근 가능용
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
@@ -43,5 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
 
-    // TODO : 스웨거에 설정
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/v2/api-docs","/swagger-resources/**","/swagger-ui.html"
+        ,"/webjars/**","/swagger/**");
+    }
 }

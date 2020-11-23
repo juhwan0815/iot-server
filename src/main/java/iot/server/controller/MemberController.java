@@ -1,5 +1,8 @@
 package iot.server.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import iot.server.model.requestDto.member.MemberDeleteDto;
 import iot.server.model.requestDto.member.MemberUpdateRequestDto;
 import iot.server.model.response.CommonResult;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@Api(tags = {"2. Member"})
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -23,12 +27,20 @@ public class MemberController {
     private final MemberService memberService;
     private final ResponseService responseService;
 
+    @ApiImplicitParams({
+      @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
+              ,dataType = "String", paramType = "header")
+    })
     @GetMapping("/members")
     public ListResult<MemberDto> findMembers(){
         List<MemberDto> result = memberService.findAll();
         return responseService.getListResult(result);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
+                    ,dataType = "String", paramType = "header")
+    })
     @GetMapping("/member/{id}")
     public SingleResult<MemberDto> findMember(@PathVariable Long id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,6 +51,10 @@ public class MemberController {
         return responseService.getSingleResult(result);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
+                    ,dataType = "String", paramType = "header")
+    })
     @PutMapping("/member")
     public CommonResult updateMember(@RequestBody @Valid MemberUpdateRequestDto memberUpdateRequestDto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,6 +63,10 @@ public class MemberController {
         return responseService.getSuccessResult();
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
+                    ,dataType = "String", paramType = "header")
+    })
     @DeleteMapping("/member")
     public CommonResult deleteMember(@RequestBody @Valid MemberDeleteDto memberDeleteDto){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
