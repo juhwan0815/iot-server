@@ -11,6 +11,7 @@ import iot.server.repository.MemberRepository;
 import iot.server.service.MemberService;
 import iot.server.service.ResponseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -32,7 +33,7 @@ public class SignController {
 
     @PostMapping("/signup")
     public CommonResult signup(@RequestBody @Valid MemberSignupDto memberSignupDto){
-        System.out.println("1");
+        log.info("입력");
         memberService.saveMember(memberSignupDto);
         return responseService.getSuccessResult();
     }
