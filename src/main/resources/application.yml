@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://mydatabase.cwkz7n34u6at.ap-northeast-2.rds.amazonaws.com:3306/spring?useSSL=false&useUnicode=true&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/spring?useSSL=false&useUnicode=true&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: rjatjd0815*
+    password: root
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties.hibernate:
-      hbm2ddl.auto: create # DB 스키마 알아서 변경
+      hbm2ddl.auto: update # DB 스키마 알아서 변경
       format_sql: true
 #    show-sql: true
     generate-ddl: true

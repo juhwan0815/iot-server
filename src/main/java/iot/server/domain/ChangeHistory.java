@@ -16,4 +16,10 @@ public class ChangeHistory extends CommonData{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STERILIZER_ID")
     private Sterilizer sterilizer;
+
+    // == 연관관계 편이 메서드 == //
+    public void changeSterilizer(Sterilizer sterilizer){
+        this.sterilizer = sterilizer;
+        sterilizer.getChangeHistories().add(this);
+    }
 }

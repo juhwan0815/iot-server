@@ -1,6 +1,7 @@
 package iot.server.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -17,13 +18,24 @@ public class Disinfectant extends CommonData{
 
     private int currentCapacity;
 
-    private int price;
-
-    private String name;
-
+    @Setter
     @OneToOne(mappedBy = "disinfectant")
     private Sterilizer sterilizer;
 
+    public Disinfectant() {
+    }
 
+    public Disinfectant(int totalCapacity, int currentCapacity) {
+        this.totalCapacity = totalCapacity;
+        this.currentCapacity = currentCapacity;
+    }
 
+    public void changeCurrent(int useAmount) {
+        if (currentCapacity-useAmount <= 0){
+            currentCapacity = 0;
+            sterilizer.noRunStatus();
+        }else {
+            currentCapacity -= useAmount;
+        }
+    }
 }

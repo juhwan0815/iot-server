@@ -33,6 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .authorizeRequests() // 다음 리퀘스트에 대한 사용 권한 체
                         .antMatchers("/member/signin","/member/signup").permitAll() // 가입 및 인증 주소는 누구나 접근 가능
                         .antMatchers(HttpMethod.GET,"/exception/**").permitAll() // exception 허용
+                        .antMatchers("/useHistory").permitAll()
+                        .antMatchers("/disinfectant").permitAll()
                         .anyRequest().hasRole("MEMBER") // 그 외 나머지 요청은 모두 인증된 회원만 접근 가능용
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())

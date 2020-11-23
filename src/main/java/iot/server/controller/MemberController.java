@@ -3,6 +3,7 @@ package iot.server.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import iot.server.model.requestDto.member.MemberDeleteDto;
 import iot.server.model.requestDto.member.MemberUpdateRequestDto;
 import iot.server.model.response.CommonResult;
@@ -27,6 +28,7 @@ public class MemberController {
     private final MemberService memberService;
     private final ResponseService responseService;
 
+    @ApiOperation(value = "모든 회원 조회",notes = "모든 회원을 조회한다")
     @ApiImplicitParams({
       @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
               ,dataType = "String", paramType = "header")
@@ -37,6 +39,7 @@ public class MemberController {
         return responseService.getListResult(result);
     }
 
+    @ApiOperation(value = "회원 한명 조회",notes = "회원 한명을 조회한다.")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
                     ,dataType = "String", paramType = "header")
@@ -51,9 +54,10 @@ public class MemberController {
         return responseService.getSingleResult(result);
     }
 
+    @ApiOperation(value = "회원 수정",notes = "회원 수정을 한다.")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
-                    ,dataType = "String", paramType = "header")
+                    ,dataType = "String", paramType = "header"),
     })
     @PutMapping("/member")
     public CommonResult updateMember(@RequestBody @Valid MemberUpdateRequestDto memberUpdateRequestDto){
@@ -63,6 +67,7 @@ public class MemberController {
         return responseService.getSuccessResult();
     }
 
+    @ApiOperation(value = "회원 탈퇴",notes = "회원탈퇴를 한다.")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN",value = "로그인 성공 후 access_token",required = true
                     ,dataType = "String", paramType = "header")

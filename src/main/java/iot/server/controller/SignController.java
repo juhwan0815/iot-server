@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 @Api(tags = {"1. Sign"})
@@ -38,7 +39,7 @@ public class SignController {
 
     @ApiOperation(value = "회원가입",notes = "이메일 회원가입")
     @PostMapping("/signup")
-    public CommonResult signup(@RequestBody @Valid MemberSignupDto memberSignupDto){
+    public CommonResult signup(@RequestBody MemberSignupDto memberSignupDto){
         memberService.saveMember(memberSignupDto);
         return responseService.getSuccessResult();
     }
