@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Api(tags = {"5. 소독기"})
+@Api(tags = {"5. 소독제"})
 @RestController
 @RequiredArgsConstructor
 public class DisinfectantController {
