@@ -4,11 +4,15 @@ import iot.server.advice.exception.SterilizerNotFoundException;
 import iot.server.domain.ChangeHistory;
 import iot.server.domain.Sterilizer;
 import iot.server.model.requestDto.disinfectant.DisinfectantSaveDto;
+import iot.server.model.responseDto.changehistory.ChangeHistoryDto;
 import iot.server.repository.ChangeHistoryRepository;
 import iot.server.repository.SterilizerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +28,12 @@ public class ChangeHistoryService {
         ChangeHistory changeHistory = new ChangeHistory();
         changeHistory.changeSterilizer(findSterilizer);
         changeHistoryRepository.save(changeHistory);
+    }
+
+
+    public List<ChangeHistoryDto> findChangeHistory(Long sterilizerId) {
+        Sterilizer sterilizer = sterilizerRepository.findById(sterilizerId).orElseThrow(SterilizerNotFoundException::new);
+        return sterilizer.getChangeHistories().stream().map(changeHistory -> new ChangeHistoryDto(changeHistory.getId(), changeHistory.getCreatedAt()))
+                .collect(Collectors.toList());
     }
 }

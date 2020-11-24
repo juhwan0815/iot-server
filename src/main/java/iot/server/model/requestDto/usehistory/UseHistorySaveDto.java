@@ -1,4 +1,4 @@
-package iot.server.model.requestDto.userhistory;
+package iot.server.model.requestDto.usehistory;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class UserHistorySaveDto {
+public class UseHistorySaveDto {
 
     @NotEmpty
     private String serialNumber;

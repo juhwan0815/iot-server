@@ -53,12 +53,7 @@ public class SterilizerService {
 
     public SterilizerDetailDto findSterilizer(Long sterilizerId) {
         Sterilizer findSterilizer = sterilizerRepository.findById(sterilizerId).orElseThrow(SterilizerNotFoundException::new);
-        return SterilizerDetailDto.builder()
-                .id(findSterilizer.getId())
-                .address(findSterilizer.getAddress())
-                .runStatus(findSterilizer.getStatus())
-                .serialNumber(findSterilizer.getSerialNumber())
-                .build();
+        return new SterilizerDetailDto(findSterilizer);
     }
 
     @Transactional

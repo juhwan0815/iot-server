@@ -1,11 +1,15 @@
 package iot.server.domain;
 
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class UseHistory extends CommonData{
 
     @Id
@@ -14,6 +18,9 @@ public class UseHistory extends CommonData{
     private Long id;
 
     private int useAmount;
+
+    @CreatedDate
+    private LocalDate createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "STERILIZER_ID")
