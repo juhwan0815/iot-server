@@ -31,7 +31,7 @@ public class Disinfectant extends CommonData{
     }
 
     public int changeCurrentCapacity(int currentCapacity) {
-        if(currentCapacity <= 0){
+        if(this.currentCapacity <= 20){
             sterilizer.noRunStatus();
             this.currentCapacity = 0;
             return 0;
