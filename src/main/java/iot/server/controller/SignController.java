@@ -39,7 +39,7 @@ public class SignController {
 
     @ApiOperation(value = "회원가입",notes = "이메일 회원가입")
     @PostMapping("/signup")
-    public CommonResult signup(@RequestBody MemberSignupDto memberSignupDto){
+    public CommonResult signup(@RequestBody @Valid MemberSignupDto memberSignupDto){
         memberService.saveMember(memberSignupDto);
         return responseService.getSuccessResult();
     }

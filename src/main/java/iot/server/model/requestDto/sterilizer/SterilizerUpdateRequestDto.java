@@ -10,13 +10,12 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class SterilizerUpdateRequestDto {
 
-    @NotEmpty
+    @NotEmpty(message = "도시는 필수입니다.")
     private String city;
-    @NotEmpty
+    @NotEmpty(message = "도로명 주소는 필수입니다.")
     private String street;
-    @NotEmpty
-    private String code;
-    @NotEmpty
+    @NotEmpty(message = "위치는 필수 입니다.")
     private String position;
-
+    @NotEmpty(message = "위치 코드는 필수입니다.")
+    private String code;
 }
