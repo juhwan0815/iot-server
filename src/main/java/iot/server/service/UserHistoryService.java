@@ -32,12 +32,12 @@ public class UserHistoryService {
         if(findSterilizer.getStatus().equals(RunStatus.NOTRUN)){
             throw new SterilizerNotRunException();
         }
-        findSterilizer.getDisinfectant().changeCurrent(useHistorySaveDto.getUseAmount());
-
-        UseHistory useHistory = new UseHistory(useHistorySaveDto.getUseAmount());
-        useHistory.changeSterilizer(findSterilizer);
-        useHistoryRepository.save(useHistory);
-
+        int useAmount = findSterilizer.getDisinfectant().changeCurrentCapacity(useHistorySaveDto.getCurrentCapacity());
+        if(useAmount > 0) {
+            UseHistory useHistory = new UseHistory(useAmount);
+            useHistory.changeSterilizer(findSterilizer);
+            useHistoryRepository.save(useHistory);
+        }
     }
 
 

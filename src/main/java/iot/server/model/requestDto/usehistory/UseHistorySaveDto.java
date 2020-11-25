@@ -16,6 +16,6 @@ public class UseHistorySaveDto {
     private String serialNumber;
 
     @NotNull
-    @Min(0)
-    private Integer useAmount;
+    @Min(-20)
+    private Integer currentCapacity;
 }
