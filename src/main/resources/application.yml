@@ -8,7 +8,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties.hibernate:
-      hbm2ddl.auto: none # DB 스키마 알아서 변경
+      hbm2ddl.auto: create # DB 스키마 알아서 변경
       format_sql: true
 #    show-sql: true
     generate-ddl: true
