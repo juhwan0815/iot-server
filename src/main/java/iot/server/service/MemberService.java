@@ -36,7 +36,15 @@ public class MemberService {
                     memberSignupDto.getEmail(),
                     passwordEncoder.encode(memberSignupDto.getPassword()),
                     memberSignupDto.getName());
+
+
+            // 권한을 싱글톤으로 갈아끼기도 가능
             member.setRoles(Collections.singletonList("ROLE_MEMBER"));
+//            member.setRoles(Collections.singletonList("ROLE_USER"));
+
+            // 권한을 추가하는 것도 가능
+//            member.getRoles().add("ROLE_MEMBER");
+//            member.getRoles().add("ROLE_USER");
             memberRepository.save(member);
         }
     }

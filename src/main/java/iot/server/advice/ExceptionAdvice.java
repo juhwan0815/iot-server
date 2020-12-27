@@ -19,11 +19,11 @@ public class ExceptionAdvice {
     private final ResponseService responseService;
 
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    protected CommonResult defaultException(HttpServletRequest request,Exception e){
-        return responseService.getFailResult(-1000, "서버 에러");
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    protected CommonResult defaultException(HttpServletRequest request,Exception e){
+//        return responseService.getFailResult(-1000, "서버 에러");
+//    }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

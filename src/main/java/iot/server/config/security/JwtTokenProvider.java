@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
-    @Value("spring.jwt.secret")
+    @Value("${spring.jwt.secret}")
     private String secretKey;
 
     private Long tokenValidMilisecond = 1000L * 60 * 60; // 1시간만 토큰 유호
@@ -50,6 +50,8 @@ public class JwtTokenProvider {
     // Jwt 토큰으로 인증 정보를 조회
     public Authentication getAuthentication(String token){
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getMemberPk(token));
+
+        System.out.println("userDetails.getUsername() = " + userDetails.getUsername()); // juwom0831@naver.com
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
     }
 
