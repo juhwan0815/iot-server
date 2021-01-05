@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @RequiredArgsConstructor
 @Configuration
@@ -27,6 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()// rest api이므로 기본설정 사용 안함, 기본설정은 비인증시 로그인 폼 화면으로 리다이렉트
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .csrf().disable() // rest Api 이므로 csrf 보안이 필요없으므로 disable
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성 X
                 .and()
@@ -35,6 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.GET,"/exception/**").permitAll() // exception 허용
                         .antMatchers(HttpMethod.POST,"/useHistory").permitAll()
                         .antMatchers(HttpMethod.POST,"/disinfectant").permitAll()
+                        .antMatchers(HttpMethod.GET,"/hello").permitAll()
                         .anyRequest().hasRole("MEMBER") // 그 외 나머지 요청은 모두 인증된 회원만 접근 가능용
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
@@ -42,6 +48,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
                     .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);// jwt 토큰 필터를 id/password 필터 전에 넣는다.
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(false);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**",configuration);
+        return source;
     }
 
 

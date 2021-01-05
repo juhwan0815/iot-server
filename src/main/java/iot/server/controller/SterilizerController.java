@@ -95,6 +95,10 @@ public class SterilizerController {
         return responseService.getSuccessResult();
     }
 
-
+//    @CrossOrigin(origins = "*")
+    @GetMapping("/hello")
+    public String hello(){
+        return "안녕하세요!";
+    }
 
 }
